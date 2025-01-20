@@ -30,6 +30,13 @@
 
     header h1 {
       font-size: 2.5rem;
+      margin: 0;
+    }
+
+    header h2 {
+      font-size: 1.5rem;
+      margin: 10px 0 0;
+      color: #ccc;
     }
 
     nav {
@@ -259,7 +266,8 @@
 <body>
 
   <header>
-    <h1>Welcome to NerdTown <p>(non-Nerd People also Welcomed)</p></h1>
+    <h1>Welcome to NerdTown</h1>
+    <h2>Non-nerds are also welcomed! Dont be alarmed :-D</h2>
   </header>
 
   <nav>
@@ -284,7 +292,7 @@
     </div>
 
     <div class="buttons-container">
-      <button class="button" onclick="showPopup('Please Read')">Please Read</button>
+      <button class="button" onclick="showPopup('Please Read')">***Please Read***</button>
       <button class="button" onclick="showPopup('Snacks for Purchase')">Snacks for Purchase</button>
     </div>
 
@@ -311,7 +319,7 @@
       const popupText = document.getElementById('popupText');
 
       if (buttonType === 'Please Read') {
-        popupText.innerHTML = 'I always provide a quiet ride, unless you would like to have a conversation.<li> lets stay away from politics or religion, there are so many more intresting topics in the world.</li>';
+        popupText.innerHTML = '<li>I always provide a quiet ride, unless you would like to have a conversation.</li><li> Lets stay away from politics or religion, there are so many more intresting topics in the world.</li>';
       } else if (buttonType === 'Snacks for Purchase') {
         popupText.innerHTML = '<ul><li>Twix - $1</li><li>Snickers - $1</li><li>KitKat - $1</li><li>Bounty - $1</li><li>Reeses Pieces - $1</li><li>Mars Bar - $1</li></ul>';
       }
