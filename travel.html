@@ -1,20 +1,21 @@
-<!-- Travel Photos Page -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Travel Photos - My Personal Website</title>
+  <title>Travel Photos - NerdTown</title>
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       line-height: 1.6;
       color: #333;
-      background-color: #f2f2f2;
+      background: linear-gradient(to bottom, #f2f2f2, #e0e0e0);
+      margin: 0;
+      padding: 0;
     }
 
     header {
-      background: #003366;
+      background: linear-gradient(to right, #003366, #00509e);
       color: white;
       text-align: center;
       padding: 20px 0;
@@ -22,6 +23,7 @@
 
     header h1 {
       font-size: 2.5rem;
+      margin: 0;
     }
 
     nav {
@@ -37,19 +39,42 @@
       margin: 0 15px;
       font-size: 1.1rem;
       font-weight: bold;
+      position: relative;
+      padding-bottom: 5px;
+      transition: color 0.3s ease, transform 0.3s ease;
     }
 
     nav a:hover {
-      text-decoration: underline;
+      color: #ffd700;
+      transform: scale(1.1);
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 3px;
+      background: #ffd700;
+      bottom: 0;
+      left: 0;
+      transform: scaleX(0);
+      transform-origin: bottom right;
+      transition: transform 0.25s ease-out;
+    }
+
+    nav a:hover::after {
+      transform: scaleX(1);
+      transform-origin: bottom left;
     }
 
     .content {
-      max-width: 800px;
+      max-width: 1200px;
       margin: 20px auto;
       padding: 20px;
       background: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
     }
 
     h2 {
@@ -58,26 +83,34 @@
     }
 
     .photo-gallery {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 20px;
-      justify-content: center;
+      justify-items: center;
     }
 
     .photo-item {
-      width: 200px;
+      width: 100%;
       text-align: center;
+      position: relative;
+      transition: transform 0.3s ease;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+
+    .photo-item:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     }
 
     .photo-item img {
       max-width: 100%;
       border-radius: 8px;
-      cursor: pointer;
       transition: transform 0.3s ease;
     }
 
     .photo-item img:hover {
-      transform: scale(1.05);
+      transform: scale(1.1);
     }
 
     .photo-caption {
@@ -92,17 +125,29 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0, 0, 0, 0.9);
       display: flex;
       justify-content: center;
       align-items: center;
       z-index: 2000;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     .modal img {
       max-width: 90%;
       max-height: 90%;
       border-radius: 8px;
+      animation: zoomIn 0.3s ease;
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.8); }
+      to { transform: scale(1); }
     }
 
     .modal-close {
@@ -127,11 +172,11 @@
 <body>
 
   <header>
-    <h1>Travel Photos</h1>
+    <h1>Travel Photos (Taken with My Phone)</h1>
   </header>
 
   <nav>
-    <a href="home.html">Home</a>
+    <a href="index.html">Home</a>
     <a href="skills.html">Skills</a>
     <a href="travel.html">Travel Photos</a>
   </nav>
@@ -140,36 +185,58 @@
     <h2>My Travels</h2>
     <div class="photo-gallery">
       <div class="photo-item">
-        <img src="https://via.placeholder.com/800x400.png?text=Travel+Photo+1" alt="Travel Photo 1" onclick="showModal(this.src)">
-        <p class="photo-caption">Description of Travel Photo 1</p>
+        <img src="https://i.imgur.com/IBnwIZq.jpg" alt="Venice, Italy" onclick="showModal(this.src)">
+        <p class="photo-caption"><strong>Venice, Italy</strong></p>
       </div>
       <div class="photo-item">
-        <img src="https://via.placeholder.com/800x400.png?text=Travel+Photo+2" alt="Travel Photo 2" onclick="showModal(this.src)">
-        <p class="photo-caption">Description of Travel Photo 2</p>
+        <img src="https://i.imgur.com/TBNnCXR.jpg" alt="Santorini" onclick="showModal(this.src)">
+        <p class="photo-caption"><em>Three Bells Of Fira, Santorini</em></p>
       </div>
       <div class="photo-item">
-        <img src="https://via.placeholder.com/800x400.png?text=Travel+Photo+3" alt="Travel Photo 3" onclick="showModal(this.src)">
-        <p class="photo-caption">Description of Travel Photo 3</p>
+        <img src="https://i.imgur.com/va7x8nw.jpg" alt="Clouds of Shiraz, Iran" onclick="showModal(this.src)">
+        <p class="photo-caption"><strong>Clouds of Shiraz, Iran</strong></p>
       </div>
       <div class="photo-item">
-        <img src="https://via.placeholder.com/800x400.png?text=Travel+Photo+4" alt="Travel Photo 4" onclick="showModal(this.src)">
-        <p class="photo-caption">Description of Travel Photo 4</p>
+        <img src="https://i.imgur.com/TqXCQAz.jpg" alt="Starbucks in Osaka, Japan" onclick="showModal(this.src)">
+        <p class="photo-caption"><em>Starbucks in Osaka, Japan</em></p>
+      </div>
+      <div class="photo-item">
+        <img src="https://i.imgur.com/YVd0vU3.jpg" alt="St. Stephen`s Cathedral, Vienna" onclick="showModal(this.src)">
+        <p class="photo-caption"> <strong>St. Stephen`s Cathedral, Vienna</strong></p>
+      </div>
+      <div class="photo-item">
+        <img src="https://i.imgur.com/sCtBjGl.jpg" alt="Me in Athens, Greece" onclick="showModal(this.src)">
+        <p class="photo-caption"><em>Me in Athens, Greece</em></p>
+      </div>
+      <div class="photo-item">
+        <img src="https://i.imgur.com/xdv4yfZ.jpg" alt="Statue Made by Bernini, Vatican City" onclick="showModal(this.src)">
+        <p class="photo-caption"> <strong>Statue Made by Bernini, Vatican City</strong></p>
+      </div>
+      <div class="photo-item">
+        <img src="https://i.imgur.com/8OHLAro.jpg" alt="DRACULA CASTLE, Romania" onclick="showModal(this.src)">
+        <p class="photo-caption"><strong><em>DRACULA CASTLE, Romania</em></strong></p>
+      </div>
+      <div class="photo-item">
+        <img src="https://i.imgur.com/w9s60Ht.jpg" alt="Pelesh Castle, Romania" onclick="showModal(this.src)">
+        <p class="photo-caption"><em>Pelesh Castle, Romani</em></p>
+      </div>
+      <div class="photo-item">
+        <img src="https://i.imgur.com/J1SBd4m.jpg" alt="Qeshm Island, Iran" onclick="showModal(this.src)">
+        <p class="photo-caption"> <strong>Qeshm Island, Iran</strong></p>
       </div>
     </div>
   </div>
 
   <footer>
-    <p>&copy; 2025 [Your Name]</p>
+    <p>&copy; 2025 [Designed and Created by Siavash]</p>
   </footer>
 
-  <!-- Modal for enlarged image -->
   <div id="imageModal" class="modal" style="display: none;">
     <span class="modal-close" onclick="closeModal()">&times;</span>
     <img id="modalImg" src="" alt="Enlarged">
   </div>
 
   <script>
-    // Modal logic for enlarged image
     const imageModal = document.getElementById('imageModal');
     const modalImg = document.getElementById('modalImg');
 

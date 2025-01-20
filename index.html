@@ -3,20 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home - My Personal Website</title>
+  <title>Home-Nerdtown</title>
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       line-height: 1.6;
       color: #333;
       background-color: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      min-height: 100vh; /* Change from height to min-height */
+      margin: 0;
+      overflow-y: auto; /* Allow vertical scrolling */
     }
 
     header {
       background: #003366;
       color: white;
       text-align: center;
-      padding: 20px 0;
+      padding: 20px;
+      width: 100%; /* Ensures it spans the full width */
+      box-sizing: border-box; /* Ensures padding doesn't affect the width */
     }
 
     header h1 {
@@ -28,6 +37,7 @@
       justify-content: center;
       background: #00509e;
       padding: 10px 0;
+      width: 100%;
     }
 
     nav a {
@@ -36,10 +46,33 @@
       margin: 0 15px;
       font-size: 1.1rem;
       font-weight: bold;
+      position: relative;
+      padding-bottom: 5px;
+      transition: color 0.3s ease, transform 0.3s ease;
     }
 
     nav a:hover {
       text-decoration: underline;
+      color: #ffd700;
+      transform: scale(1.1);
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 3px;
+      background: #ffd700;
+      bottom: 0;
+      left: 0;
+      transform: scaleX(0);
+      transform-origin: bottom right;
+      transition: transform 0.25s ease-out;
+    }
+
+    nav a:hover::after {
+      transform: scaleX(1);
+      transform-origin: bottom left;
     }
 
     .content {
@@ -49,6 +82,11 @@
       background: white;
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      position: relative;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     h2 {
@@ -56,27 +94,65 @@
       margin-bottom: 20px;
     }
 
-    .interactive-box {
+    .about-me p {
+      font-size: 1rem;
+    }
+
+    .emoji-container {
       display: flex;
       justify-content: space-around;
+      width: 100%;
+      margin: 20px 0;
+    }
+
+    .emoji {
+      font-size: 2rem;
+      animation: float 5s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(0);
+        opacity: 1;
+      }
+      25% {
+        transform: translateY(-30px) rotate(15deg);
+        opacity: 1;
+      }
+      50% {
+        transform: translateY(0) rotate(0);
+        opacity: 0.7;
+      }
+      75% {
+        transform: translateY(30px) rotate(-15deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(0) rotate(0);
+        opacity: 1;
+      }
+    }
+
+    .buttons-container {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
       margin-top: 20px;
     }
 
-    .box {
-      width: 150px;
-      height: 150px;
+    .button {
+      padding: 15px 25px;
       background-color: #00509e;
       color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 8px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.2rem;
       cursor: pointer;
-      text-align: center;
       transition: background-color 0.3s ease;
+      width: 45%;
     }
 
-    .box:hover {
+    .button:hover {
       background-color: #003366;
     }
 
@@ -86,7 +162,7 @@
     }
 
     .baby-hazel img {
-      max-width: 100%;
+      max-width: 50%;
       border-radius: 8px;
       cursor: pointer;
       transition: transform 0.3s ease;
@@ -102,29 +178,12 @@
       margin-top: 10px;
     }
 
-    .popup {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      z-index: 1000;
+    footer {
       text-align: center;
-      width: 300px;
-      font-size: 1rem;
-    }
-
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: 999;
+      padding: 20px;
+      background: #333;
+      color: white;
+      margin-top: 20px;
     }
 
     .modal {
@@ -156,99 +215,114 @@
       cursor: pointer;
     }
 
-    footer {
-      text-align: center;
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
       padding: 20px;
-      background: #333;
-      color: white;
-      margin-top: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+      text-align: center;
+      width: 300px;
     }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+    }
+
+    .popup p {
+      font-size: 1rem;
+      color: #555;
+    }
+
+    .popup ul {
+      text-align: left;
+      margin-top: 10px;
+      color: #333;
+    }
+
+    .popup ul li {
+      padding: 5px 0;
+    }
+
   </style>
 </head>
 <body>
 
   <header>
-    <h1>Welcome to My Website</h1>
+    <h1>Welcome to NerdTown <p>(non-Nerd People also Welcomed)</p></h1>
   </header>
 
   <nav>
-    <a href="home.html">Home</a>
+    <a href="index.html">Home</a>
     <a href="skills.html">Skills</a>
     <a href="travel.html">Travel Photos</a>
   </nav>
 
   <div class="content">
-    <h2>About Me</h2>
-    <p>Hello! I'm [Your Name]. Welcome to my personal website. Feel free to explore!</p>
+    <div class="about-me">
+      <h2>About Me</h2>
+      <p>Hello! I'm <strong>Siavash AKA Cee</strong>. <p>I am a Freelance <strong>Product Manager</strong> and <strong>Software Developer</strong>, <strong>Math</strong> and <strong>Science Tutor</strong>, <strong>Chess</strong> and <strong>Pool Coach</strong>, <strong>Life Coach</strong> and <strong>Personal Trainer</strong>, and on my free times, an <strong>Avid Traveler</strong>.</p> <p>Make sure you check out the skills and travel pages! It would be <strong>fun!!!</strong></p>
+    </div>
 
-    <div class="interactive-box">
-      <div class="box" id="pleaseReadBox">Please Read</div>
-      <div class="box" id="snacksBox">Snacks for Purchase</div>
+    <div class="emoji-container">
+      <div class="emoji dumbbell">🏋️‍♂️</div>
+      <div class="emoji food">🍎</div>
+      <div class="emoji chess">♟️</div>
+      <div class="emoji pool">🎱</div>
+      <div class="emoji nutrition">🍔</div>
+      <div class="emoji travel">🏞️</div>
+    </div>
+
+    <div class="buttons-container">
+      <button class="button" onclick="showPopup('Please Read')">Please Read</button>
+      <button class="button" onclick="showPopup('Snacks for Purchase')">Snacks for Purchase</button>
+    </div>
+
+    <div class="baby-hazel">
+      <img src="https://i.imgur.com/1zTM3WB.jpeg" alt="Baby Hazel" id="babyHazelImg">
+      <p class="photo-caption">This is <strong>Baby Hazel</strong>, The reason I have started <strong>driving again</strong>!</p>
+      <p><strong><em>I must provide for her</em></strong></p>
     </div>
   </div>
 
-  <div class="baby-hazel">
-    <img src="https://via.placeholder.com/800x400.png?text=Meet+Baby+Hazel" alt="Baby Hazel" id="babyHazelImg">
-    <p class="photo-caption">This is Baby Hazel, bringing joy to my life every day!</p>
-  </div>
-
   <footer>
-    <p>&copy; 2025 [Your Name]</p>
+    <p>&copy; 2025 [Designed and Created by Siavash]</p>
   </footer>
 
   <div id="popup" class="popup" style="display: none;">
-    <p id="popupText"></p>
+    <div id="popupText"></div>
+    <br>
     <button onclick="closePopup()">Close</button>
   </div>
   <div id="overlay" class="overlay" style="display: none;"></div>
 
-  <!-- Modal for enlarged image -->
-  <div id="imageModal" class="modal" style="display: none;">
-    <span class="modal-close" onclick="closeModal()">&times;</span>
-    <img id="modalImg" src="" alt="Enlarged">
-  </div>
-
   <script>
-    // Popup logic
-    const popup = document.getElementById('popup');
-    const overlay = document.getElementById('overlay');
-    const popupText = document.getElementById('popupText');
+    function showPopup(buttonType) {
+      const popupText = document.getElementById('popupText');
 
-    function showPopup(message) {
-      popupText.innerHTML = message; // Use innerHTML to support HTML formatting
-      popup.style.display = 'block';
-      overlay.style.display = 'block';
+      if (buttonType === 'Please Read') {
+        popupText.innerHTML = 'Add your content here for the "Please Read" section. You can provide important information or instructions here.';
+      } else if (buttonType === 'Snacks for Purchase') {
+        popupText.innerHTML = '<ul><li>Twix - $1</li><li>Snickers - $1</li><li>KitKat - $1</li><li>Bounty - $1</li><li>Reeses Pieces - $1</li><li>Mars Bar - $1</li></ul>';
+      }
+
+      document.getElementById('popup').style.display = 'block';
+      document.getElementById('overlay').style.display = 'block';
     }
 
     function closePopup() {
-      popup.style.display = 'none';
-      overlay.style.display = 'none';
-    }
-
-    // "Please Read" box functionality
-    const pleaseReadBox = document.getElementById('pleaseReadBox');
-    pleaseReadBox.addEventListener('click', () => {
-      showPopup("The choice to have a conversation is totally yours,<br>and let's stay off politics and religion.");
-    });
-
-    // "Snacks for Purchase" box functionality
-    const snacksBox = document.getElementById('snacksBox');
-    snacksBox.addEventListener('click', () => {
-      showPopup("Available snacks:<br>- KitKat<br>- Twix<br>- Mars Bar<br>- M&M's");
-    });
-
-    // Modal logic for enlarged image
-    const babyHazelImg = document.getElementById('babyHazelImg');
-    const imageModal = document.getElementById('imageModal');
-    const modalImg = document.getElementById('modalImg');
-
-    babyHazelImg.addEventListener('click', () => {
-      modalImg.src = babyHazelImg.src;
-      imageModal.style.display = 'flex';
-    });
-
-    function closeModal() {
-      imageModal.style.display = 'none';
+      document.getElementById('popup').style.display = 'none';
+      document.getElementById('overlay').style.display = 'none';
     }
   </script>
 
